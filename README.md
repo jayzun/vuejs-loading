@@ -44,9 +44,9 @@ option available:
 | key | type | default | description |
 | :-: | :-: | :-: | ------ |
 | text | string | "加载中..." | loading text |
-| mask | boolean | true | whether to show a fullscreen,transparent mask |
+| mask | boolean | true | whether to show a fullscreen, transparent mask |
 | callback | function |  | function to call when loading is closed |
-| duration | number |  | auto close time, 1000 = 1 second, without duration, loading exists permanently |
+| duration | number |  | auto close time, 1000 = 1 second; without duration, loading exists permanently |
 
 ## License
 
