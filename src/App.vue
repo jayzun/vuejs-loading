@@ -1,6 +1,6 @@
 <template>
     <div :class="mask ? 'mask' : ''" v-show="state">
-        <div class="loading" ref="loading" :class="text ? 'loading-with-text' : 'loading'">
+        <div ref="loading" :class="text ? 'loading-with-text' : 'loading'">
             <img class="loading__img" src="../assets/images/loading.svg" alt="">
             <div class="loading__text" v-html="text"></div>
         </div>
@@ -46,6 +46,7 @@
 <style scoped lang="less">
     .mask {
         position: absolute;
+        z-index: 1000;
         top: 0;
         left: 0;
         width: 100%;
