@@ -1,20 +1,30 @@
 import vuejsLoading from './App.vue'
 
-vuejsLoading.install = (Vue, globalOption) => {
+vuejsLoading.install = (Vue, defaultOption) => {
 
     //用于将option合并到组件中的data
-    let merge = (data, option) => {
-        let source = option || {};
-        for (let prop in source) {
-            if (source.hasOwnProperty(prop)) {
-                let value = source[prop];
-                if (value !== undefined) {
-                    data[prop] = value;
+    let merge = (data, ...option) => {
+        for (let i = 0; i < option.length; i++) {
+            let source = option[i] || {};
+            for (let prop in source) {
+                if (source.hasOwnProperty(prop)) {
+                    let value = source[prop];
+                    // if (value !== undefined) {
+                        data[prop] = value;
+                    // }
                 }
             }
         }
         return data;
     }
+
+    //配置默认option
+    let defaults = merge({
+        text: '加载中...',
+        duration: undefined,
+        callback: undefined,
+        mask: true
+    }, defaultOption);
 
     let instance;
     //extend 是构造一个组件的语法器
@@ -26,28 +36,25 @@ vuejsLoading.install = (Vue, globalOption) => {
             el: document.createElement('div')
         });
         //合并全局option
-        merge(instance.$data, globalOption);
+        merge(instance.$data, defaults);
         //添加到body
         document.body.appendChild(instance.$el);
     }
 
     let Loading = {
         show(option) {
-            if(window.$isLoading === undefined) {
+            if (!instance) {
                 //组件仅初始化一次
                 initInstance();
-            }
-            else if(window.$isLoading) {
+            } else if (instance.state) {
                 return;
             }
             //合并option
-            merge(instance.$data, option);
+            merge(instance.$data, defaults, option);
             //显示loading组件
             instance.state = true;
-            window.$isLoading = true;
         },
         close() {
-            window.$isLoading = false;
             //隐藏loading组件
             instance.state = false;
         }

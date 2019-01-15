@@ -17,6 +17,8 @@
         },
         mounted() {
             this.$loading.show({mask:false,text:'hello world',callback:this.onClose});
+            this.$loading.close();
+            this.$loading.show({mask:true});
         }
     }
 </script>

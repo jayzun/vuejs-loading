@@ -30,7 +30,6 @@
                     if (!isNaN(duration)) {
                         setTimeout(() => {
                             this.state = false;
-                            window.$isLoading = false;
                         }, duration);
                     }
                 } else if (preVal) {
