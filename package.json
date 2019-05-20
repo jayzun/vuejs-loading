@@ -1,6 +1,6 @@
 {
     "name": "vuejs-loading",
-    "version": "1.0.1",
+    "version": "1.0.4",
     "description": "A loading component for mobile webapp, by vue.js",
     "main": "dist/vuejs-loading.min.js",
     "scripts": {

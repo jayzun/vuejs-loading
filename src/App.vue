@@ -1,6 +1,6 @@
 <template>
-    <div :class="mask ? 'mask' : ''" v-show="state">
-        <div ref="loading" :class="text ? 'loading-with-text' : 'loading'">
+    <div :class="maskClass" v-show="state">
+        <div ref="loading" :class="loadingClass">
             <img class="loading__img" src="../assets/images/loading.svg" alt="">
             <div class="loading__text" v-html="text"></div>
         </div>
@@ -11,7 +11,6 @@
     export default {
         name: 'vuejs-loading',
         data() {
-
             return {
                 state: false,
                 text: '加载中...',
@@ -20,11 +19,22 @@
                 mask: true
             }
         },
+        computed: {
+            maskClass() {
+                return {
+                    'mask': this.mask
+                }
+            },
+            loadingClass() {
+                return {
+                    'loading-with-text': this.text,
+                    'loading': !this.text
+                }
+            }
+        },
         watch: {
             state(curVal, preVal) {
-
                 let duration = parseInt(this.duration);
-
                 if (curVal) {
                     //根据duration设置的时间，loading自动消失
                     if (!isNaN(duration)) {
@@ -44,7 +54,7 @@
 
 <style scoped lang="less">
     .mask {
-        position: absolute;
+        position: fixed;
         z-index: 1000;
         top: 0;
         left: 0;
@@ -53,7 +63,7 @@
     }
 
     .loading {
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         min-width: 50px;
